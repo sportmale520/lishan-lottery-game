@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>梨山國中小 - 臺灣文學行動展數位抽獎系統</title>
+    <!-- Google Fonts: Outfit (English) & Noto Sans TC (Chinese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for beautiful icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Traditional Atayal border pattern at the very top -->
+    <div class="atayal-border-top"></div>
+
+    <div class="app-container">
+        <!-- Header Banner -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="tribal-badge">Lokah Su!</span>
+                <h1>梨山國民中小學</h1>
+                <h2>臺灣文學行動展 ‧ 數位主題抽獎系統</h2>
+            </div>
+            <div class="exhibition-info">
+                <p><i class="fa-solid fa-feather-pointed"></i> 探索原住民族文學脈絡，感受土地與筆尖的對話。交回學習單，開啟祖靈之箭的驚喜祝福！</p>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <!-- Left Panel: Configurations & Student List -->
+            <section class="panel-left card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-sliders"></i> 抽獎設定與名單</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Config Form Group -->
+                    <div class="form-group">
+                        <label for="prize-input"><i class="fa-solid fa-gift"></i> 當前抽獎獎項</label>
+                        <input type="text" id="prize-input" value="臺灣文學行動特展精美紀念品" placeholder="例如：原民編織手環、繪本...">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="draw-count"><i class="fa-solid fa-users"></i> 每次抽取人數</label>
+                            <select id="draw-count">
+                                <option value="1" selected>1 人</option>
+                                <option value="2">2 人</option>
+                                <option value="3">3 人</option>
+                                <option value="5">5 人</option>
+                                <option value="10">10 人</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="animation-select"><i class="fa-solid fa-wand-magic-sparkles"></i> 儀式動畫主題</label>
+                            <select id="animation-select">
+                                <option value="archery" selected>🎯 泰雅神箭獵星 (Archery)</option>
+                                <option value="weaving">🌀 織路祖靈轉輪 (Weaving)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Audio / TTS Settings -->
+                    <div class="system-toggles">
+                        <label class="toggle-container">
+                            <input type="checkbox" id="sound-toggle" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text"><i class="fa-solid fa-volume-high"></i> 音效與背景鼓聲</span>
+                        </label>
+                        <label class="toggle-container">
+                            <input type="checkbox" id="tts-toggle" checked>
+                            <span class="checkmark"></span>
+                            <span class="label-text"><i class="fa-solid fa-bullhorn"></i> 中獎國語語音唱名</span>
+                        </label>
+                    </div>
+
+                    <!-- Student List Area -->
+                    <div class="form-group list-group">
+                        <div class="list-header">
+                            <label for="student-list"><i class="fa-solid fa-list-check"></i> 抽獎候選名單 (<span id="total-count">0</span> 人)</label>
+                            <div class="btn-group-mini">
+                                <button type="button" id="btn-load-demo" class="btn btn-secondary-mini" title="載入梨山國中小範例名單">
+                                    <i class="fa-solid fa-arrows-rotate"></i> 載入範例
+                                </button>
+                                <button type="button" id="btn-clear-list" class="btn btn-danger-mini" title="清空名單">
+                                    <i class="fa-solid fa-trash-can"></i> 清空
+                                </button>
+                            </div>
+                        </div>
+                        <textarea id="student-list" placeholder="請在此輸入學生名單，每行一位學生。&#10;格式範例：&#10;七年甲班 林小明&#10;六年甲班 莎韻‧瓦旦&#10;八年甲班 帖木‧巴尚"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Center Panel: The Canvas Drawing Board / Stage -->
+            <section class="panel-center card">
+                <div class="stage-container" id="stage-container">
+                    <!-- Tribal Diamond Pattern Overlays for Background Atmosphere -->
+                    <div class="bg-tribal-pattern"></div>
+                    
+                    <!-- The Drawing Canvas -->
+                    <canvas id="lottery-canvas"></canvas>
+
+                    <!-- Overlay text or animation control overlay -->
+                    <div class="stage-overlay" id="stage-overlay">
+                        <div class="overlay-content">
+                            <div class="camp-fire-glow"></div>
+                            <i class="fa-solid fa-bullseye-arrow main-arrow-icon"></i>
+                            <h2 class="prompt-text">拉弓準備，請神靈賜予祝福！</h2>
+                            <p class="sub-prompt-text">點擊下方按鈕或拉動畫面開始射箭抽獎</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Big Draw Button -->
+                <div class="action-bar">
+                    <button type="button" id="btn-draw" class="btn btn-primary btn-large">
+                        <span class="btn-glow"></span>
+                        <i class="fa-solid fa-bow-arrow"></i> 🎯 釋放神箭 ‧ 開始抽獎
+                    </button>
+                </div>
+            </section>
+
+            <!-- Right Panel: Winners Log & Board Notification -->
+            <section class="panel-right card">
+                <!-- Academic Affairs Office Notice Board -->
+                <div class="notice-board">
+                    <div class="notice-header">
+                        <i class="fa-solid fa-circle-exclamation blink-icon"></i> 教務處教學組 重要通知
+                    </div>
+                    <div class="notice-body">
+                        <p>📢 恭喜所有得獎同學！</p>
+                        <p class="highlight-text">請得獎者攜帶<strong>「臺灣文學行動展觀後學習單」</strong>，親自至<strong>【教務處教學組】</strong>領取您的精美獎品！</p>
+                    </div>
+                </div>
+
+                <div class="card-header winners-header">
+                    <h3><i class="fa-solid fa-award"></i> 本次展覽幸運得主</h3>
+                    <button type="button" id="btn-export" class="btn btn-secondary-mini" title="匯出 CSV">
+                        <i class="fa-solid fa-file-export"></i> 匯出名單
+                    </button>
+                </div>
+                <div class="card-body winners-list-wrapper">
+                    <!-- Current Winner Presentation Modal (Triggered on draw finish) -->
+                    <div id="winner-pop-container" class="winner-pop-container hidden">
+                        <div class="winner-pop-card">
+                            <div class="pop-ribbon">恭喜中獎！</div>
+                            <div class="pop-class" id="pop-class">---</div>
+                            <div class="pop-name" id="pop-name">---</div>
+                            <div class="pop-prize" id="pop-prize">獲得：---</div>
+                            <button type="button" id="btn-close-pop" class="btn btn-accent-mini">收下祝福</button>
+                        </div>
+                    </div>
+
+                    <ul id="winners-list" class="winners-list">
+                        <li class="empty-item"><i class="fa-solid fa-ticket-simple"></i> 目前尚無得獎紀錄，請開始抽獎。</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>臺中市立梨山國民中小學 ‧ 臺灣文學行動展 ‧ 數位主題抽獎系統 © 2026</p>
+            <p class="footer-tribal-text">織路不息，傳承榮耀 — Lokah Su!</p>
+        </footer>
+    </div>
+
+    <!-- Speech settings and support warning -->
+    <div id="tts-status" class="tts-status-toast hidden">
+        <i class="fa-solid fa-circle-info"></i> 語音朗讀準備就緒
+    </div>
+
+    <!-- Import Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
