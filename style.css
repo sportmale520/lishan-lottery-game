@@ -1,0 +1,892 @@
+/* ==========================================================================
+   Lishan School Lucky Draw System - Theme Stylesheet (style.css)
+   Theme: Atayal Indigenous Culture (Crimson Red, Black, White & Fire Embers)
+   ========================================================================== */
+
+/* Root Variables & Colors */
+:root {
+    --bg-dark: #090c10;
+    --bg-card: rgba(18, 22, 32, 0.75);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #f5f6f9;
+    --text-secondary: #a0aab8;
+    
+    /* Atayal Cultural Color Palette */
+    --atayal-red: #d32f2f;
+    --atayal-red-glow: rgba(211, 47, 47, 0.35);
+    --atayal-black: #141416;
+    --atayal-white: #ffffff;
+    
+    /* Accent & Glow Colors */
+    --accent-orange: #ff6d00;
+    --accent-orange-glow: rgba(255, 109, 0, 0.45);
+    --accent-gold: #ffd600;
+    --accent-cyan: #00e5ff;
+    --accent-cyan-glow: rgba(0, 229, 255, 0.3);
+    
+    /* System Styling */
+    --font-primary: 'Noto Sans TC', 'Outfit', sans-serif;
+    --border-radius-lg: 16px;
+    --border-radius-md: 8px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Styles & Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(211, 47, 47, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255, 109, 0, 0.08) 0%, transparent 40%);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--atayal-red);
+}
+
+/* Atayal Top Decorative Woven Border */
+.atayal-border-top {
+    height: 14px;
+    background: repeating-linear-gradient(
+        45deg,
+        var(--atayal-red),
+        var(--atayal-red) 12px,
+        #ffffff 12px,
+        #ffffff 14px,
+        #000000 14px,
+        #000000 26px,
+        #ffffff 26px,
+        #ffffff 28px
+    );
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(211, 47, 47, 0.25);
+    position: relative;
+    z-index: 100;
+}
+
+/* App Container Layout */
+.app-container {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 24px;
+}
+
+/* Header Styling */
+.app-header {
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.8), rgba(8, 8, 8, 0.9));
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.app-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='%23d32f2f' fill-opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+
+.logo-area {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-area h1 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #ffffff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-area h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--atayal-red);
+    border-left: 2px solid var(--border-color);
+    padding-left: 16px;
+}
+
+.tribal-badge {
+    background: linear-gradient(135deg, var(--atayal-red), var(--accent-orange));
+    color: var(--atayal-white);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 12px var(--atayal-red-glow);
+    animation: pulse 2s infinite;
+}
+
+.exhibition-info {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.exhibition-info i {
+    color: var(--accent-orange);
+    margin-right: 6px;
+}
+
+/* Main Content Grid */
+.app-main {
+    display: grid;
+    grid-template-columns: 350px 1fr 340px;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+/* Glassmorphism Cards */
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header h3 i {
+    color: var(--atayal-red);
+}
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-grow: 1;
+}
+
+/* Form Styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+label i {
+    font-size: 0.95rem;
+    color: var(--accent-orange);
+}
+
+input[type="text"], select, textarea {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    color: var(--text-primary);
+    padding: 10px 14px;
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+}
+
+input[type="text"]:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--atayal-red);
+    box-shadow: 0 0 10px var(--atayal-red-glow);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+textarea {
+    resize: none;
+    height: 100%;
+    min-height: 180px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Custom Checkbox Toggle */
+.system-toggles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 32px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    user-select: none;
+}
+
+.toggle-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    transition: var(--transition-smooth);
+}
+
+.toggle-container:hover input ~ .checkmark {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.toggle-container input:checked ~ .checkmark {
+    background-color: var(--atayal-red);
+    border-color: var(--atayal-red);
+    box-shadow: 0 0 8px var(--atayal-red-glow);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.toggle-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.toggle-container .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.label-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.label-text i {
+    color: var(--text-secondary);
+}
+
+/* Mini Buttons inside forms */
+.list-group {
+    flex-grow: 1;
+}
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-group-mini {
+    display: flex;
+    gap: 6px;
+}
+
+.btn {
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-primary);
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-secondary-mini {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    font-size: 0.75rem;
+}
+
+.btn-secondary-mini:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-danger-mini {
+    background: rgba(211, 47, 47, 0.15);
+    color: #ff8a80;
+    border: 1px solid rgba(211, 47, 47, 0.3);
+    padding: 4px 10px;
+    font-size: 0.75rem;
+}
+
+.btn-danger-mini:hover {
+    background: var(--atayal-red);
+    color: white;
+}
+
+.btn-accent-mini {
+    background: linear-gradient(135deg, var(--atayal-red), var(--accent-orange));
+    color: white;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 14px var(--atayal-red-glow);
+}
+
+.btn-accent-mini:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(211, 47, 47, 0.5);
+}
+
+/* Center Stage Panels */
+.panel-center {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(14, 18, 28, 0.85) 0%, rgba(8, 10, 16, 0.95) 100%);
+}
+
+.stage-container {
+    flex-grow: 1;
+    position: relative;
+    min-height: 400px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #05070a;
+}
+
+#lottery-canvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+/* Background Atayal Diamond Pattern overlay on the canvas */
+.bg-tribal-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(45deg, rgba(211, 47, 47, 0.015) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(211, 47, 47, 0.015) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(211, 47, 47, 0.015) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(211, 47, 47, 0.015) 75%);
+    background-size: 80px 80px;
+    background-position: 0 0, 0 40px, 40px -40px, -40px 0;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.stage-overlay {
+    position: absolute;
+    z-index: 3;
+    text-align: center;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+.stage-overlay.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 30px;
+}
+
+.main-arrow-icon {
+    font-size: 3.5rem;
+    color: var(--accent-orange);
+    text-shadow: 0 0 20px var(--accent-orange-glow);
+    animation: bounce 2s infinite;
+}
+
+.prompt-text {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+}
+
+.sub-prompt-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Campfire Embers effect for background */
+.camp-fire-glow {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-orange-glow) 0%, transparent 70%);
+    position: absolute;
+    z-index: -1;
+    animation: flicker 1.5s infinite alternate;
+}
+
+/* Big Action Bar Button */
+.action-bar {
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+}
+
+.btn-large {
+    font-size: 1.25rem;
+    padding: 16px 48px;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--atayal-red) 0%, var(--accent-orange) 100%);
+    color: var(--atayal-white);
+    box-shadow: 0 10px 30px var(--atayal-red-glow);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(211, 47, 47, 0.6);
+}
+
+.btn-large:active {
+    transform: translateY(-1px);
+}
+
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: skewX(-30deg);
+    animation: shine 4s infinite;
+}
+
+/* Right Panel: Announcement Notice & Winners Log */
+.notice-board {
+    margin: 20px 20px 10px 20px;
+    background: linear-gradient(135deg, rgba(211, 47, 47, 0.1) 0%, rgba(20, 20, 20, 0.5) 100%);
+    border: 1.5px dashed var(--atayal-red);
+    border-radius: var(--border-radius-md);
+    padding: 16px;
+    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.15);
+}
+
+.notice-header {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--atayal-red);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.notice-body p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+
+.notice-body .highlight-text {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.notice-body strong {
+    color: var(--accent-gold);
+    font-weight: 700;
+    border-bottom: 1px solid var(--accent-gold);
+    padding-bottom: 1px;
+}
+
+.winners-header {
+    border-top: 1px solid var(--border-color);
+}
+
+.winners-list-wrapper {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 480px;
+    position: relative;
+    padding: 15px 20px;
+}
+
+.winners-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.winners-list li {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition-smooth);
+    animation: slideIn 0.3s ease-out;
+}
+
+.winners-list li:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(4px);
+}
+
+.winner-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.winner-student {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.winner-student span {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 6px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.winner-prize {
+    font-size: 0.8rem;
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.winner-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.empty-item {
+    color: var(--text-secondary);
+    text-align: center;
+    justify-content: center !important;
+    padding: 40px 0 !important;
+    font-size: 0.85rem;
+    border: 1px dashed rgba(255, 255, 255, 0.08) !important;
+    background: transparent !important;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.empty-item i {
+    font-size: 1.8rem;
+    opacity: 0.3;
+}
+
+/* Winner Modal Pop Container */
+.winner-pop-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 7, 10, 0.85);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: var(--transition-smooth);
+}
+
+.winner-pop-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.05);
+}
+
+.winner-pop-card {
+    background: linear-gradient(135deg, rgba(30, 20, 20, 0.95), rgba(15, 10, 10, 0.98));
+    border: 2px solid var(--atayal-red);
+    box-shadow: 0 15px 50px rgba(211, 47, 47, 0.4);
+    width: 90%;
+    max-width: 290px;
+    border-radius: var(--border-radius-lg);
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pop-ribbon {
+    background: linear-gradient(to right, #ffd600, #ff6d00);
+    color: #000000;
+    font-weight: 900;
+    padding: 4px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(255, 109, 0, 0.4);
+}
+
+.pop-class {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.pop-name {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.pop-prize {
+    font-size: 0.85rem;
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+/* Toast Notification Styles */
+.tts-status-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: rgba(18, 22, 32, 0.9);
+    border: 1px solid var(--accent-cyan);
+    border-radius: var(--border-radius-md);
+    padding: 12px 20px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(0, 229, 255, 0.15);
+    z-index: 99;
+    color: var(--accent-cyan);
+    animation: slideUp 0.3s ease-out;
+}
+
+.tts-status-toast.hidden {
+    display: none;
+}
+
+/* Footer Styling */
+.app-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.footer-tribal-text {
+    font-size: 0.85rem;
+    color: var(--atayal-red);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   Animations & Transitions
+   ========================================================================== */
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 4px 12px var(--atayal-red-glow); }
+    50% { transform: scale(1.03); box-shadow: 0 4px 20px rgba(211, 47, 47, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 4px 12px var(--atayal-red-glow); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes flicker {
+    0% { opacity: 0.7; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes shine {
+    0% { left: -100%; transition: 0s; }
+    20% { left: 100%; transition: 0.6s; }
+    100% { left: 100%; transition: 0s; }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideIn {
+    0% { transform: translateY(10px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.blink-icon {
+    animation: blinker 1.5s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0.3; }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+    .app-main {
+        grid-template-columns: 320px 1fr;
+    }
+    .panel-right {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 900px) {
+    .app-main {
+        grid-template-columns: 1fr;
+    }
+    .panel-left, .panel-center, .panel-right {
+        grid-column: span 1;
+    }
+    .logo-area h2 {
+        border-left: none;
+        padding-left: 0;
+        width: 100%;
+        margin-top: -8px;
+    }
+    .logo-area {
+        gap: 10px;
+    }
+    .btn-large {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1.1rem;
+    }
+}
